@@ -68,11 +68,11 @@ function _copyMM() {
   </div>
 
   <div class="options">
-    <div>Kefka Position</div>
+    <div>Orientation Waymark</div>
     <input type="radio" id="Start" value="Start" v-model="kefkaOrientModel" />
-    <label for="Start">Start</label>
+    <label for="Start">Dash Start</label>
     <input type="radio" id="End" value="End" v-model="kefkaOrientModel" />
-    <label for="End">End</label>
+    <label for="End">Dash End</label>
   </div>
 
 <br />
