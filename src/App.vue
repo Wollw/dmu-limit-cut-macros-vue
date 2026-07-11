@@ -34,7 +34,7 @@ watch(footerModel,()=>{update()})
 function update() {
   const macroFormat: mb.MacroFormat = {
     waymarkSet:
-      waymarkSetModel.value == 'NE' ? mb.WaymarkSet.OneNorthEast : mb.WaymarkSet.OneNorthWest,
+      waymarkSetModel.value == 'NW' ? mb.WaymarkSet.OneNorthEast : mb.WaymarkSet.OneNorthWest,
     kefkaOrient: kefkaOrientModel.value == 'End' ? mb.Origin.KefkaEnd : mb.Origin.KefkaStart,
     chatMode: chatModeModel.value,
     name: nameFormatModel.value,
