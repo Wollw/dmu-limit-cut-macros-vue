@@ -11,7 +11,7 @@ const $toast = useToast()
 type MacroProps = InstanceType<typeof Macro>['$props']
 const macros: Ref<MacroProps[]> = ref([])
 
-const waymarkSetModel = defineModel('waymarkSetModel', { default: 'NE' })
+const waymarkSetModel = defineModel('waymarkSetModel', { default: 'NW' })
 const kefkaOrientModel = defineModel('kefkaOrientModel', { default: 'End' })
 const chatModeModel = defineModel('chatModeModel', { default: 'e' })
 const nameFormatModel = defineModel('nameFormatModel', { default: '{0} [{1}]' })
