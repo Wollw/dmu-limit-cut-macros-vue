@@ -1,0 +1,35 @@
+body {
+  background-color: #222;
+  color: #eee;
+  text-align: center;
+}
+
+div.options {
+  display: inline-block;
+  border: solid white 1px;
+  margin: 4px;
+  padding: 4px;
+}
+
+#copyDisclaimer {
+  color: lime;
+}
+
+#headerLine {
+  margin-right: 2px;
+}
+
+div.output {
+  border: solid 1px;
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+}
+
+pre {
+  margin: 2px;
+  padding: 2px;
+  border: solid 1px;
+  text-align: left;
+}
