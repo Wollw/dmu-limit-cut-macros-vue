@@ -4,6 +4,10 @@ body {
   text-align: center;
 }
 
+input.text {
+  width:250px;
+}
+
 div.options {
   display: inline-block;
   border: solid white 1px;

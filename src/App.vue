@@ -14,10 +14,10 @@ const macros: Ref<MacroProps[]> = ref([])
 const waymarkSetModel = defineModel('waymarkSetModel', { default: 'NW' })
 const kefkaOrientModel = defineModel('kefkaOrientModel', { default: 'End' })
 const chatModeModel = defineModel('chatModeModel', { default: 'e' })
-const nameFormatModel = defineModel('nameFormatModel', { default: '{0} [{1}]' })
-const lineFormatModel = defineModel('lineFormatModel', { default: '{0} -> {1}{2}' })
+const nameFormatModel = defineModel('nameFormatModel', { default: 'Limit Cut {orient} [{rotate}]' })
+const lineFormatModel = defineModel('lineFormatModel', { default: '{player} -> {mark1}{mark2}' })
 const directionFormatModel = defineModel('directionFormatModel', {
-  default: 'New North: {0} [Look {1}]',
+  default: 'New North: {north} [Look {rotate}]',
 })
 const headerModel = defineModel('headerModel', { default: '' })
 const footerModel = defineModel('footerModel', { default: '' })
@@ -75,37 +75,50 @@ function _copyMM() {
     <label for="End">End</label>
   </div>
 
-  <br />
-
+<br />
 
 
   <div class="options">
     <div>Macro Name Format</div>
-    <input type="text" v-model="nameFormatModel"></input>
+    <input class="text" type="text" v-model="nameFormatModel"></input>
   </div>
 
   <div class="options">
     <div>Direction Format</div>
-    <input type="text" v-model="directionFormatModel"></input>
+    <input class="text" type="text" v-model="directionFormatModel"></input>
   </div>
 
   <div class="options">
     <div>Line Format</div>
-    <input type="text" v-model="lineFormatModel"></input>
+    <input class="text" type="text" v-model="lineFormatModel"></input>
   </div>
   <br />
   <div class="options">
     <div>Chat Mode</div>
-    <input type="text" v-model="chatModeModel"></input>
+    <input class="text" type="text" v-model="chatModeModel"></input>
   </div>
 
   <div class="options">
-    <div>Header/Footer Macro Lines</div>
-    <input type="text" id="headerLine" v-model="headerModel"></input>
-    <input type="text" id="footerLine" v-model="footerModel"></input>
+    <div>Header Line</div>
+    <input class="text" type="text" id="headerLine" v-model="headerModel"></input>
+  </div>
+
+  <div class="options">
+    <div>Footer Line</div>
+    <input class="text" type="text" id="footerLine" v-model="footerModel"></input>
   </div>
 
   <br />
+  <div class="options">
+    <pre>
+    Placeholders:
+      {north} : Kefka's first dash ends here.       {rotate} : Rotation direction for players.
+    {kefkaat} : Kefka's first dash starts here.   {kefkarot} : Kefka's rotation direction.
+     {orient} : Macro orientation waymark.
+
+    Only available in Line Format:
+     {player} : The limit cut number.  {mark1} : First waymark.   {mark2} : Second waymark. </pre></div>
+<br/>
 
   <button @click="_copyMM()">Copy Macro Mate Code</button>
 

@@ -1,5 +1,5 @@
 import Macro from './Macro.vue'
-import { formatString } from './util.ts'
+import { formatString, formatStringStr } from './util.ts'
 
 type MacroProps = InstanceType<typeof Macro>['$props']
 
@@ -99,21 +99,25 @@ function buildMacro(
         return waymarks.at((newNorthIndex + waymarks.length / 2) % waymarks.length)
     }
   })()
+  const kefkaAt = waymarks.at((newNorthIndex + waymarks.length / 2) % waymarks.length)
   if (orientationWaymark === undefined) return errorValue
+  const lookDirectionString = direction === Direction.KefkaClockwise ? 'CCW' : 'CW'
+  const kefkaDirection = direction === Direction.KefkaClockwise ? 'CW' : 'CCW'
+
+  // String substituion variables
+  const vars = new Map()
+    .set('orient', orientationWaymark)
+    .set('rotate', lookDirectionString)
+    .set('kefkarot', kefkaDirection)
+    .set('north', newNorth)
+    .set('kefkaat', kefkaAt)
 
   // Build direction line
   // Look clockwise if Kefka went CCW, etc
-  const lookDirectionString = direction === Direction.KefkaClockwise ? 'CCW' : 'CW'
-  const directionLine = directionFormat
-    ? formatString(directionFormat, newNorth, lookDirectionString)
-    : undefined
+  const directionLine = directionFormat ? formatStringStr(directionFormat, vars) : undefined
 
   // Build macro name
-  const macroName: string | undefined = formatString(
-    nameFormat,
-    orientationWaymark,
-    lookDirectionString,
-  )
+  const macroName: string | undefined = formatStringStr(nameFormat, vars)
   //
   // Build macro icon line
   const iconLine = formatString(iconFormat, orientationWaymark)
@@ -125,8 +129,15 @@ function buildMacro(
     const w2 = waymarks[(limitCutMarker + newNorthIndex) % waymarks.length]
     if (w1 === undefined || w2 == undefined) return errorValue
     if (direction === Direction.KefkaClockwise)
-      macroLines += formatString(lineFormat, limitCutMarker.toString(), w1, w2)
-    else macroLines += formatString(lineFormat, limitCutMarker.toString(), w2, w1)
+      macroLines += formatStringStr(
+        lineFormat,
+        vars.set('player', limitCutMarker.toString()).set('mark1', w1).set('mark2', w2),
+      )
+    else
+      macroLines += formatStringStr(
+        lineFormat,
+        vars.set('player', limitCutMarker.toString()).set('mark2', w1).set('mark1', w2),
+      )
     macroLines += '\r\n'
   }
   macroLines += format.footer ? format.footer + '\r\n' : ''
