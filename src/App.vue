@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import Macro from './Macro.vue'
 import * as mb from './macrobuilder.ts'
@@ -22,6 +22,15 @@ const directionFormatModel = defineModel('directionFormatModel', {
 const headerModel = defineModel('headerModel', { default: '' })
 const footerModel = defineModel('footerModel', { default: '' })
 
+watch(waymarkSetModel,()=>{update()})
+watch(kefkaOrientModel,()=>{update()})
+watch(chatModeModel,()=>{update()})
+watch(nameFormatModel,()=>{update()})
+watch(lineFormatModel,()=>{update()})
+watch(directionFormatModel,()=>{update()})
+watch(headerModel,()=>{update()})
+watch(footerModel,()=>{update()})
+
 function update() {
   const macroFormat: mb.MacroFormat = {
     waymarkSet:
@@ -36,6 +45,8 @@ function update() {
   }
   macros.value = mb.buildMacros(macroFormat)
 }
+update();
+
 
 function _copyMM() {
   copyMacroMate(macros.value)
@@ -66,9 +77,11 @@ function _copyMM() {
 
   <br />
 
+
+
   <div class="options">
-    <div>Chat Mode</div>
-    <input type="text" v-model="chatModeModel"></input>
+    <div>Macro Name Format</div>
+    <input type="text" v-model="nameFormatModel"></input>
   </div>
 
   <div class="options">
@@ -80,8 +93,12 @@ function _copyMM() {
     <div>Line Format</div>
     <input type="text" v-model="lineFormatModel"></input>
   </div>
-
   <br />
+  <div class="options">
+    <div>Chat Mode</div>
+    <input type="text" v-model="chatModeModel"></input>
+  </div>
+
   <div class="options">
     <div>Header/Footer Macro Lines</div>
     <input type="text" id="headerLine" v-model="headerModel"></input>
@@ -90,7 +107,6 @@ function _copyMM() {
 
   <br />
 
-  <button @click="update">Update</button>
   <button @click="_copyMM()">Copy Macro Mate Code</button>
 
   <h2>Output</h2>
@@ -104,5 +120,5 @@ function _copyMM() {
     <h3 v-if="i == 8">Clockwise</h3>
     <Macro :name="m.name" :lines="m.lines"></Macro>
     <br v-if="(i + 1) % 4 == 0" />
-  </span>
+    </span>
 </template>

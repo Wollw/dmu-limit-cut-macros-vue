@@ -6,7 +6,7 @@ import { useToast } from 'vue-toast-notification'
 const $toast = useToast()
 
 const source = ref('')
-const { text, copy, copied, isSupported } = useClipboard({ source })
+const { copy } = useClipboard({ source })
 
 function _copy(_source: string) {
   copy(_source)
